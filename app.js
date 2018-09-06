@@ -25,6 +25,8 @@ app.use(compress());
 
 // Load Routes
 const indexRouter = require('./routes/index');
+const sentencesRouter = require('./routes/sentences');
+const usersRouter = require('./routes/users');
 
 // Passport Config
 require('./config/passport')(passport);
@@ -87,6 +89,8 @@ app.use((req, res, next) => {
 
 // Use routes
 app.use('/', indexRouter);
+app.use('/sentences', sentencesRouter);
+app.use('/users', usersRouter);
 
 const port = process.env.PORT || 5000;
 

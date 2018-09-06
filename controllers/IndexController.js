@@ -2,6 +2,6 @@ require('../models/User');
 
 module.exports = {
   index(req, res, next) {
-    res.render('index', { title: 'Title!' });
+    return res.render('index/index', { title: 'Title!' });
   }
 };
