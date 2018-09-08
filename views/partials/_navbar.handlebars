@@ -2,18 +2,29 @@
   <nav class="blue z-depth-1" role="navigation">
     <div class="container">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo">Boilerplate</a>
+        <a href="/" class="brand-logo">Boilerplate</a>
         <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse">
           <i class="material-icons">menu</i>
         </a>
         <ul class="right hide-on-med-and-down">
           {{#if user}}
-            <li><a href="/">Welcome {{ user.username }}</a></li>
-            <li><a href="/users/logout">Logout</a></li>
-          {{else}}
-            <li><a href="/sentences">Sentences</a></li>
             <li>
-              <a href="/users/register">Sign Up</a>
+              <a href="/">Welcome {{ user.username }}</a>
+            </li>
+          {{/if}}
+          <li>
+            <a href="/sentences">Sentences</a>
+          </li>
+          {{#if user}}
+            <li>
+              <a href="/sentences/my">My sentences</a>
+            </li>
+            <li>
+              <a href="/users/logout">Logout</a>
+            </li>
+          {{else}}
+            <li>
+              <a href="/users/register">Sign up</a>
             </li>
             <li>
               <a href="/users/login" class="btn purple">Login</a>
@@ -31,20 +42,21 @@
     <div class="divider"></div>
   </li>
   <li>
-    <a href="#home">Home</a>
+    <a href="/sentences">Sentences</a>
   </li>
+  {{#if user}}
+    <li>
+      <a href="/sentences/my">My sentences</a>
+    </li>
+    <li>
+      <a href="/users/logout">Logout</a>
+    </li>
+  {{else}}
+    <li>
+      <a href="/users/register">Sign up</a>
+    </li>
+    <li>
+      <a href="/users/login" class="btn purple">Login</a>
+    </li>
+  {{/if}}
 </ul>
-
-{{!-- <div class="showcase container">
-  <div class="row">
-    <div class="col s12 m10 offset-m1 center">
-      <h5>Welcome To Quazzu</h5>
-      <h1>Build For The Future</h1>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit fugit deserunt quos provident aliquam inventore.</p>
-      <br>
-      <br>
-      <a href="solutions.html" class="btn btn-large white purple-text">Learn More</a>
-      <a href="signup.html" class="btn btn-large purple white-text">Sign Up</a>
-    </div>
-  </div>
-</div> --}}

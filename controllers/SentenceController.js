@@ -39,5 +39,14 @@ module.exports = {
           res.redirect('/sentences');
         });
     }
+  },
+  edit(req, res, id) {
+
+  },
+  update() {
+
+  },
+  destroy() {
+    
   }
 };

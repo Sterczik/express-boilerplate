@@ -10,7 +10,8 @@
   ],
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
+    "startDev": "nodemon app.js",
     "test": "npm run eslint && npm run mocha",
     "eslint": "eslint ./. test/. --config .eslintrc.json",
     "mocha": "mocha test/ --recursive --exit"
