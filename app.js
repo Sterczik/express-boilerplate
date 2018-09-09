@@ -28,6 +28,8 @@ const indexRouter = require('./routes/index');
 const sentencesRouter = require('./routes/sentences');
 const usersRouter = require('./routes/users');
 
+const { truncate, formatDate } = require('./helpers/handlebars');
+
 // Passport Config
 require('./config/passport')(passport);
 
@@ -42,7 +44,13 @@ mongoose.connect(db.dbURI, {
   .catch(err => new Error(err));
 
 // Handlebars middleware init
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main',
+  helpers: {
+    truncate: truncate,
+    formatDate: formatDate
+  }
+}));
 app.set('view engine', 'handlebars');
 
 // BodyParser & CookieParser middleware init

@@ -9,7 +9,8 @@ const SentenceSchema = new Schema({
     required: true
   },
   user: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'users',
     required: true
   },
   date: {

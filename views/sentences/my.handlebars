@@ -1,4 +1,4 @@
-<h3>Sentences</h3>
+<h3>Your Sentences</h3>
 <div class="row">
   {{#each sentences}}
     <div class="col s12">
@@ -6,7 +6,6 @@
         <div class="card-content center-align white-text">
           <p>{{ formatDate date 'MMMM Do YYYY' }}</p>
           <p>{{ truncate content 150 }}</p>
-          <p>by <a href="/sentences/user/{{ user.id }}">{{user.username}}</a></p>
         </div>
         <a href="/sentences/edit/{{ id }}">Edit</a>
         <form action="/sentences/{{id}}?_method=DELETE" method="POST">

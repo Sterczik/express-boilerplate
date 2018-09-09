@@ -2,9 +2,9 @@
   <div class="col s12">
     <h3 class="center">Add your sentence</h3>
     <form action="/sentences/add" method="POST">
-      <div>
+      <div class="input-field">
         <label for="content">Content</label>
-        <textarea type="text" name="content">{{ content }}</textarea>
+        <textarea class="materialize-textarea" name="content" required>{{ content }}</textarea>
       </div>
       <button type="submit" class="waves-effect waves-light btn">Submit</button>
     </form>
