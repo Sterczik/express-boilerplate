@@ -7,6 +7,17 @@ module.exports = {
   index(req, res) {
     Sentence.find({})
       .populate('user')
+      .sort({date: 'desc'})
+      .then(sentences => {
+        res.render('sentences/index', { sentences });
+      });
+  },
+  public(req, res) {
+    Sentence.find({
+      user: req.params.userId
+    })
+      .populate('user')
+      .sort({date: 'desc'})
       .then(sentences => {
         res.render('sentences/index', { sentences });
       });
@@ -15,6 +26,8 @@ module.exports = {
     Sentence.find({
       user: req.user.id
     })
+      .populate('user')
+      .sort({date: 'desc'})
       .then(sentences => {
         res.render('sentences/my', { sentences });
       });
@@ -55,7 +68,12 @@ module.exports = {
       _id: req.params.id
     })
       .then(sentence => {
-        return res.render('sentences/edit', { sentence });
+        if(sentence.user != req.user.id) {
+          req.flash('error_msg', 'Not Authorized');
+          res.redirect('/sentences');
+        } else {
+          return res.render('sentences/edit', { sentence });
+        }
       });
   },
   update(req, res) {
@@ -72,7 +90,11 @@ module.exports = {
           });
       });
   },
-  destroy() {
-    
+  destroy(req, res) {
+    Sentence.findByIdAndRemove(req.params.id)
+      .then(() => {
+        req.flash('success_msg', 'Sentence deleted');
+        res.redirect('/sentences');
+      });
   }
 };

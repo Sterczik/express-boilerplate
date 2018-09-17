@@ -18,7 +18,10 @@ const sassMiddleware = require('node-sass-middleware');
 
 const app = express();
 app.use(helmet());
-app.use(cors({credentials: true, origin: true}));
+app.use(cors({
+  credentials: true,
+  origin: true
+}));
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(compress());
@@ -28,7 +31,11 @@ const indexRouter = require('./routes/index');
 const sentencesRouter = require('./routes/sentences');
 const usersRouter = require('./routes/users');
 
-const { truncate, formatDate } = require('./helpers/handlebars');
+const {
+  truncate,
+  formatDate,
+  ifCond
+} = require('./helpers/handlebars');
 
 // Passport Config
 require('./config/passport')(passport);
@@ -48,13 +55,16 @@ app.engine('handlebars', exphbs({
   defaultLayout: 'main',
   helpers: {
     truncate: truncate,
-    formatDate: formatDate
+    formatDate: formatDate,
+    ifCond: ifCond
   }
 }));
 app.set('view engine', 'handlebars');
 
 // BodyParser & CookieParser middleware init
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(bodyParser.json());
 
 app.use(cookieParser());

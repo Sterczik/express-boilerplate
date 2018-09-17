@@ -7,11 +7,13 @@
           <p>{{ formatDate date 'MMMM Do YYYY' }}</p>
           <p>{{ truncate content 150 }}</p>
         </div>
-        <a href="/sentences/edit/{{ id }}">Edit</a>
-        <form action="/sentences/{{id}}?_method=DELETE" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
-          <input type="submit" value="Delete">
-        </form>
+        {{#ifCond user.id '==' ../user.id}}
+          <a href="/sentences/edit/{{ id }}">Edit</a>
+          <form action="/sentences/{{id}}?_method=DELETE" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Delete">
+          </form>
+        {{/ifCond}}
       </div>
     </div>
   {{else}}
