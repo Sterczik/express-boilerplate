@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 
 require('../models/Sentence');
@@ -37,19 +38,18 @@ module.exports = {
   },
   store(req, res) {
     const { content } = req.body;
-    let errors = [];
 
-    if(!content) {
-      errors.push({text: 'Please add some content'});
-    }
+    const schema = {
+      content: Joi.string().min(1).required(),
+    };
+    const validation = Joi.validate(req.body, schema);
 
-    if(errors.length) {
+    if(validation.error) {
       res.render('sentences/add', {
-        errors,
+        error: validation.error.details[0].message,
         content
       });
     } else {
-
       const newSentence = {
         content: content,
         user: req.user.id
@@ -77,18 +77,33 @@ module.exports = {
       });
   },
   update(req, res) {
-    Sentence.findOne({
-      _id: req.params.id
-    })
-      .then(sentence => {
-        sentence.content = req.body.content;
-        
-        sentence.save()
-          .then(sentence => {
-            req.flash('success_msg', 'Sentence edited');
-            res.redirect('/sentences');
-          });
+    const { content } = req.body;
+
+    const schema = {
+      content: Joi.string().min(1).required(),
+      _method: Joi.string().required()
+    };
+    const validation = Joi.validate(req.body, schema);
+
+    if(validation.error) {
+      res.render('sentences/edit', {
+        error: validation.error.details[0].message,
+        content
       });
+    } else {
+      Sentence.findOne({
+        _id: req.params.id
+      })
+        .then(sentence => {
+          sentence.content = content;
+          
+          sentence.save()
+            .then(sentence => {
+              req.flash('success_msg', 'Sentence edited');
+              res.redirect('/sentences');
+            });
+        });
+    }
   },
   destroy(req, res) {
     Sentence.findByIdAndRemove(req.params.id)

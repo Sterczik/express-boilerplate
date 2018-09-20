@@ -50,6 +50,8 @@ mongoose.connect(db.dbURI, {
   .then(() => {})
   .catch(err => new Error(err));
 
+mongoose.set('useCreateIndex', true);
+
 // Handlebars middleware init
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',

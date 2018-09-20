@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -9,19 +10,24 @@ module.exports = {
     return res.render('users/register');
   },
   store(req, res) {
-    let errors = [];
     const { username, password, password2 } = req.body;
 
-    if(password !== password2) {
-      errors.push({text: 'Passwords do not match'});
-    }
-    if(password.length < 4) {
-      errors.push({text: 'Password must be at least 4 characters'});
-    }
+    const schema = {
+      username: Joi.string().min(4).max(20).required(),
+      password: Joi.string().min(6).max(20).required(),
+      password2: Joi.string().required().valid(Joi.ref('password')).options({
+        language: {
+          any: {
+            allowOnly: '!!Passwords do not match',
+          }
+        } 
+      })
+    };
+    const validation = Joi.validate(req.body, schema);
 
-    if(errors.length) {
+    if(validation.error) {
       res.render('users/register', {
-        errors,
+        error: validation.error.details[0].message,
         username,
         password,
         password2
