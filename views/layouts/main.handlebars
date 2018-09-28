@@ -8,6 +8,7 @@
   
   <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&amp;subset=latin-ext" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -18,18 +19,15 @@
     {{#if user}}
       {{> _add-button}}
     {{/if}}
-    <div class="container">
 
-      {{> _msg}}
-      {{> _errors}}
-      {{{body}}}
+    {{> _msg}}
+    {{> _errors}}
+    {{{body}}}
 
-    </div>
   </main>
   {{> _footer}}
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-  {{!-- <script src="/js/main.js"></script> --}}
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
