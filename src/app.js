@@ -53,8 +53,12 @@ mongoose.connect(db.dbURI, {
 mongoose.set('useCreateIndex', true);
 
 // Handlebars middleware init
+app.set('views', path.join(__dirname, 'views'));
+
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
+  layoutsDir: path.join(__dirname, "views/layouts"),
+  partialsDir: path.join(__dirname, "views/partials"),
   helpers: {
     truncate: truncate,
     formatDate: formatDate,
