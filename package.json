@@ -8,10 +8,10 @@
     "mongo",
     "boilerplate"
   ],
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
     "test": "npm run eslint && npm run mocha",
     "eslint": "eslint ./. test/. --config .eslintrc.json",
     "mocha": "mocha test/ --recursive --exit"
