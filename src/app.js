@@ -1,20 +1,25 @@
 require('dotenv').config();
 
-const express = require('express');
-const path = require('path');
-const favicon = require('serve-favicon');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const exphbs = require('express-handlebars');
-const methodOverride = require('method-override');
-const helmet = require('helmet');
-const compress = require('compression');
-const flash = require('connect-flash');
-const session = require('express-session');
-const passport = require('passport');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const sassMiddleware = require('node-sass-middleware');
+import express from 'express';
+import path from 'path';
+import favicon from 'serve-favicon';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import exphbs from 'express-handlebars';
+import methodOverride from 'method-override';
+import helmet from 'helmet';
+import compress from 'compression';
+import flash from 'connect-flash';
+import session from 'express-session';
+import passport from 'passport';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import sassMiddleware from 'node-sass-middleware';
+
+// Load Routes
+import indexRouter from './routes/index';
+import sentencesRouter from './routes/sentences';
+import usersRouter from './routes/users';
 
 const app = express();
 app.use(helmet());
@@ -26,43 +31,35 @@ app.use(cors({
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(compress());
 
-// Load Routes
-const indexRouter = require('./routes/index');
-const sentencesRouter = require('./routes/sentences');
-const usersRouter = require('./routes/users');
-
-const {
-  truncate,
-  formatDate,
-  ifCond
-} = require('./helpers/handlebars');
-
 // Passport Config
-require('./config/passport')(passport);
+import passportConfig from './config/passport';
+passportConfig(passport);
 
 // DB Config
-const db = require('./config/database');
+const dbURI = process.env.NODE_ENV === 'production' ? process.env.DB_URI : process.env.DEV_DB_URI;
 
 // Connect to mongoose
-mongoose.connect(db.dbURI, {
+mongoose.connect(dbURI, {
   useNewUrlParser: true
 })
   .then(() => {})
-  .catch(err => new Error(err));
+  .catch(err => console.log(new Error(err)));
 
 mongoose.set('useCreateIndex', true);
 
 // Handlebars middleware init
+import { truncate, formatDate, ifCond } from './helpers/handlebars';
+
 app.set('views', path.join(__dirname, 'views'));
 
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
-  layoutsDir: path.join(__dirname, "views/layouts"),
-  partialsDir: path.join(__dirname, "views/partials"),
+  layoutsDir: path.join(__dirname, 'views/layouts'),
+  partialsDir: path.join(__dirname, 'views/partials'),
   helpers: {
-    truncate: truncate,
-    formatDate: formatDate,
-    ifCond: ifCond
+    truncate,
+    formatDate,
+    ifCond
   }
 }));
 app.set('view engine', 'handlebars');
@@ -79,8 +76,8 @@ app.use(cookieParser());
 app.use(sassMiddleware({
   src: path.join(__dirname, 'assets'),
   dest: path.join(__dirname, 'public'),
-  indentedSyntax: false, // true = .sass and false = .scss
-  sourceMap: true,
+  indentedSyntax: false,
+  sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -102,7 +99,7 @@ app.use(passport.session());
 // Flash middleware init
 app.use(flash());
 
-//Global variables for Flash
+// Global variables for Flash
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
@@ -119,5 +116,5 @@ app.use('/users', usersRouter);
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-  // console.log(`Server started on port ${port}`);
+  console.log(`Server started on port ${port}`);
 });

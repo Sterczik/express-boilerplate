@@ -1,6 +1,6 @@
-const passport = require('passport');
+import passport from 'passport';
 
-module.exports = {
+export default {
   index(req, res) {
     return res.render('users/login');
   },
@@ -14,7 +14,7 @@ module.exports = {
   logout(req, res) {
     req.logout();
     req.flash('success_msg', 'You are logged out');
-  
+
     res.redirect('/users/login');
   }
 };

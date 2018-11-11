@@ -1,9 +1,8 @@
-const express = require('express');
+import express from 'express';
+import SentenceController from '../controllers/SentenceController';
+import ensureAuthenticated from '../helpers/auth';
+
 const router = express.Router();
-
-const SentenceController = require('../controllers/SentenceController');
-
-const { ensureAuthenticated } = require('../helpers/auth');
 
 router.get('/', SentenceController.index);
 router.get('/user/:userId', SentenceController.public);
@@ -14,4 +13,4 @@ router.get('/edit/:id', ensureAuthenticated, SentenceController.edit);
 router.patch('/edit/:id', ensureAuthenticated, SentenceController.update);
 router.delete('/:id', ensureAuthenticated, SentenceController.destroy);
 
-module.exports = router;
+export default router;

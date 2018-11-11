@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
 
-const LoginController = require('../controllers/LoginController');
-const RegisterController = require('../controllers/RegisterController');
+import LoginController from '../controllers/LoginController';
+import RegisterController from '../controllers/RegisterController';
+
+const router = express.Router();
 
 router.get('/login', LoginController.index);
 router.post('/login', LoginController.store);
@@ -11,4 +12,4 @@ router.get('/logout', LoginController.logout);
 router.get('/register', RegisterController.index);
 router.post('/register', RegisterController.store);
 
-module.exports = router;
+export default router;

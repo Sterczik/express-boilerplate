@@ -1,15 +1,16 @@
-const Joi = require('joi');
-const mongoose = require('mongoose');
+import Joi from 'joi';
+import mongoose from 'mongoose';
 
 require('../models/Sentence');
+
 const Sentence = mongoose.model('sentences');
 
-module.exports = {
+export default {
   index(req, res) {
     Sentence.find({})
       .populate('user')
-      .sort({date: 'desc'})
-      .then(sentences => {
+      .sort({ date: 'desc' })
+      .then((sentences) => {
         res.render('sentences/index', { sentences });
       });
   },
@@ -18,8 +19,8 @@ module.exports = {
       user: req.params.userId
     })
       .populate('user')
-      .sort({date: 'desc'})
-      .then(sentences => {
+      .sort({ date: 'desc' })
+      .then((sentences) => {
         res.render('sentences/index', { sentences });
       });
   },
@@ -28,8 +29,8 @@ module.exports = {
       user: req.user.id
     })
       .populate('user')
-      .sort({date: 'desc'})
-      .then(sentences => {
+      .sort({ date: 'desc' })
+      .then((sentences) => {
         res.render('sentences/my', { sentences });
       });
   },
@@ -40,24 +41,24 @@ module.exports = {
     const { content } = req.body;
 
     const schema = {
-      content: Joi.string().min(1).required(),
+      content: Joi.string().min(1).required()
     };
     const validation = Joi.validate(req.body, schema);
 
-    if(validation.error) {
+    if (validation.error) {
       res.render('sentences/add', {
         error: validation.error.details[0].message,
         content
       });
     } else {
       const newSentence = {
-        content: content,
+        content,
         user: req.user.id
       };
 
       new Sentence(newSentence)
         .save()
-        .then(sentence => {
+        .then((sentence) => {
           req.flash('success_msg', 'Sentence added');
           res.redirect('/sentences');
         });
@@ -67,13 +68,13 @@ module.exports = {
     Sentence.findOne({
       _id: req.params.id
     })
-      .then(sentence => {
-        if(sentence.user != req.user.id) {
+      .then((sentence) => {
+        if (sentence.user != req.user.id) {
           req.flash('error_msg', 'Not Authorized');
           res.redirect('/sentences');
-        } else {
-          return res.render('sentences/edit', { sentence });
+          return false;
         }
+        return res.render('sentences/edit', { sentence });
       });
   },
   update(req, res) {
@@ -85,7 +86,7 @@ module.exports = {
     };
     const validation = Joi.validate(req.body, schema);
 
-    if(validation.error) {
+    if (validation.error) {
       res.render('sentences/edit', {
         error: validation.error.details[0].message,
         content
@@ -94,11 +95,11 @@ module.exports = {
       Sentence.findOne({
         _id: req.params.id
       })
-        .then(sentence => {
+        .then((sentence) => {
           sentence.content = content;
-          
+
           sentence.save()
-            .then(sentence => {
+            .then(() => {
               req.flash('success_msg', 'Sentence edited');
               res.redirect('/sentences');
             });

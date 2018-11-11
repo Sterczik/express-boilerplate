@@ -1,6 +1,6 @@
 require('../models/User');
 
-module.exports = {
+export default {
   index(req, res, next) {
     return res.render('index/index');
   },

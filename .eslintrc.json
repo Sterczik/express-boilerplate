@@ -7,7 +7,7 @@
   "parserOptions": {
     "ecmaVersion": 2017
   },
-  "extends": "eslint:recommended",
+  "extends": "airbnb-base",
   "rules": {
     "indent": [
       "error",
@@ -31,6 +31,23 @@
         "vars": "local",
         "args": "none"
       }
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "import/prefer-default-export": [
+      "none",
+      "always"
+    ],
+    "import/first": [
+      "none"
+    ],
+    "prefer-arrow-callback": [
+      "none"
+    ],
+    "no-param-reassign": [
+      "none"
     ]
   }
 }

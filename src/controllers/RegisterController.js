@@ -1,11 +1,12 @@
-const Joi = require('joi');
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import Joi from 'joi';
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 require('../models/User');
+
 const User = mongoose.model('users');
 
-module.exports = {
+export default {
   index(req, res) {
     return res.render('users/register');
   },
@@ -18,14 +19,14 @@ module.exports = {
       password2: Joi.string().required().valid(Joi.ref('password')).options({
         language: {
           any: {
-            allowOnly: '!!Passwords do not match',
+            allowOnly: '!!Passwords do not match'
           }
-        } 
+        }
       })
     };
     const validation = Joi.validate(req.body, schema);
 
-    if(validation.error) {
+    if (validation.error) {
       res.render('users/register', {
         error: validation.error.details[0].message,
         username,
@@ -33,9 +34,9 @@ module.exports = {
         password2
       });
     } else {
-      User.findOne({username})
-        .then(user => {
-          if(user) {
+      User.findOne({ username })
+        .then((user) => {
+          if (user) {
             req.flash('error_msg', 'Username is already taken');
             res.redirect('/users/register');
           } else {
@@ -43,27 +44,23 @@ module.exports = {
               username,
               password
             });
-      
+
             bcrypt.genSalt(10, (err, salt) => {
-              bcrypt.hash(newUser.password, salt, (err, hash) => {
-                if(err) throw err;
+              bcrypt.hash(newUser.password, salt, (error, hash) => {
+                if (error) throw error;
                 newUser.password = hash;
-  
+
                 newUser.save()
-                  .then(user => {
+                  .then(() => {
                     req.flash('success_msg', 'You are now registered and can log in');
                     res.redirect('/users/login');
                   })
-                  .catch(err => {
-                    return;
-                  });
+                  .catch((e) => {});
               });
             });
           }
         })
-        .catch(err => {
-          return;
-        });
+        .catch((err) => {});
     }
   }
 };
