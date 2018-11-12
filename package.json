@@ -10,13 +10,12 @@
   ],
   "main": "./src/app.js",
   "scripts": {
-    "start": "npm run build && node ./build/app.js",
+    "start": "node ./build/app.js",
     "dev": "nodemon --exec babel-node ./src/app.js",
     "eslint": "eslint ./src --config .eslintrc.json",
-    "clean": "rm -rf build && mkdir build",
+    "clean": "rimraf build && mkdir build",
     "build-babel": "./node_modules/.bin/babel src -d build && cp -R ./src/public ./build/public/ && cp -R ./src/views ./build/views/",
-    "build": "npm run clean && npm run build-babel",
-    "heroku-postbuild": "npm install && npm run start"
+    "build": "npm run clean && npm run build-babel"
   },
   "repository": "git@github.com:Sterczik/express-boilerplate.git",
   "author": "sterczik <sterczewskik@gmail.com>",

@@ -1,0 +1,65 @@
+<div class="navbar-fixed">
+  <nav class="blue darken-3 z-depth-1" role="navigation">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo bold-font">Boilerplate</a>
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          {{#if user}}
+            <li>
+              <a href="/">Welcome {{ user.username }}</a>
+            </li>
+          {{/if}}
+          <li>
+            <a href="/sentences">Sentences</a>
+          </li>
+          {{#if user}}
+            <li>
+              <a href="/sentences/my">My sentences</a>
+            </li>
+            <li>
+              <a href="/users/logout">Logout</a>
+            </li>
+          {{else}}
+            <li>
+              <a href="/users/register">Sign up</a>
+            </li>
+            <li>
+              <a href="/users/login" class="waves-effect waves-light btn pink darken-1">Login</a>
+            </li>
+          {{/if}}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<ul class="sidenav" id="mobile-nav">
+  <h4 class="h4 blue-text text-darken-4 center bold-font"><a href="/">Boilerplate</a></h4>
+
+  <li>
+    <div class="divider"></div>
+  </li>
+
+  <li>
+    <a href="/sentences">Sentences</a>
+  </li>
+
+  {{#if user}}
+    <li>
+      <a href="/sentences/my">My sentences</a>
+    </li>
+    <li>
+      <a href="/users/logout">Logout</a>
+    </li>
+  {{else}}
+    <li>
+      <a href="/users/register">Sign up</a>
+    </li>
+    <li>
+      <a href="/users/login" class="btn pink darken-1">Login</a>
+    </li>
+  {{/if}}
+</ul>

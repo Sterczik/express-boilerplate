@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col l6 offset-l3 m8 offset-m2 s12">
+      <h3 class="center bold-font">Edit your sentence</h3>
+      <form action="/sentences/edit/{{sentence.id}}?_method=PATCH" method="POST">
+        <input type="hidden" name="_method" value="PATCH">
+        <div class="input-field">
+          <label for="content">Content</label>
+          <textarea class="materialize-textarea" name="content" required>{{ sentence.content }}</textarea>
+        </div>
+        <button type="submit" class="center waves-effect waves-light btn pink darken-1">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
