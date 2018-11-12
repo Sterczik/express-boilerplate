@@ -1,6 +1,6 @@
 {
   "name": "express-boilerplate",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Simple Node, Express, MongoDB boilerplate",
   "keywords": [
     "node",
@@ -12,9 +12,7 @@
   "scripts": {
     "start": "node --exec babel-node ./src/app.js",
     "dev": "nodemon --exec babel-node ./src/app.js",
-    "test": "npm run eslint && npm run mocha",
-    "eslint": "eslint ./src --config .eslintrc.json",
-    "mocha": "mocha test/ --recursive --exit"
+    "eslint": "eslint ./src --config .eslintrc.json"
   },
   "repository": "git@github.com:Sterczik/express-boilerplate.git",
   "author": "sterczik <sterczewskik@gmail.com>",
@@ -50,7 +48,6 @@
     "eslint": "5.6.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "mocha": "5.2.0",
     "nodemon": "1.18.3"
   }
 }
