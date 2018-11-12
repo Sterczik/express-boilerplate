@@ -1,6 +1,6 @@
 {
   "name": "express-boilerplate",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Simple Node, Express, MongoDB boilerplate",
   "keywords": [
     "node",
@@ -10,9 +10,12 @@
   ],
   "main": "./src/app.js",
   "scripts": {
-    "start": "babel-node ./src/app.js",
+    "start": "npm run build && node ./build/app.js",
     "dev": "nodemon --exec babel-node ./src/app.js",
-    "eslint": "eslint ./src --config .eslintrc.json"
+    "eslint": "eslint ./src --config .eslintrc.json",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./src/app.js -s",
+    "build": "npm run clean && npm run build-babel"
   },
   "repository": "git@github.com:Sterczik/express-boilerplate.git",
   "author": "sterczik <sterczewskik@gmail.com>",
