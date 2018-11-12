@@ -2,7 +2,7 @@
 > A boilerplate app for building Node-based pages using handlebars template engine, express and mongoose
 
 #### Version
-0.2.1
+0.2.2
 
 #### Demo
 [https://sterczik-express-boilerplate.herokuapp.com/](https://sterczik-express-boilerplate.herokuapp.com/)

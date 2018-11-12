@@ -1,6 +1,6 @@
 {
   "name": "express-boilerplate",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Simple Node, Express, MongoDB boilerplate",
   "keywords": [
     "node",
@@ -10,7 +10,7 @@
   ],
   "main": "./src/app.js",
   "scripts": {
-    "start": "node --exec babel-node ./src/app.js",
+    "start": "babel-node ./src/app.js",
     "dev": "nodemon --exec babel-node ./src/app.js",
     "eslint": "eslint ./src --config .eslintrc.json"
   },
