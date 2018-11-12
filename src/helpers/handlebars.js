@@ -1,4 +1,4 @@
-const moment = require('moment');
+import moment from 'moment';
 
 export function truncate(str, len) {
   if (str.length > len && str.length > 0) {

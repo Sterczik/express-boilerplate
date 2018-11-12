@@ -1,8 +1,7 @@
 import Joi from 'joi';
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-
-require('../models/User');
+import '../models/User';
 
 const User = mongoose.model('users');
 

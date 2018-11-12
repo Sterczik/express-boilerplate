@@ -16,12 +16,12 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import sassMiddleware from 'node-sass-middleware';
 
-// Load Routes
 import indexRouter from './routes/index';
 import sentencesRouter from './routes/sentences';
 import usersRouter from './routes/users';
 
 const app = express();
+
 app.use(helmet());
 app.use(cors({
   credentials: true,
@@ -33,6 +33,7 @@ app.use(compress());
 
 // Passport Config
 import passportConfig from './config/passport';
+
 passportConfig(passport);
 
 // DB Config
@@ -65,11 +66,10 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 // BodyParser & CookieParser middleware init
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-app.use(bodyParser.json());
-
 app.use(cookieParser());
 
 // Sass middleware config

@@ -1,7 +1,6 @@
 import Joi from 'joi';
 import mongoose from 'mongoose';
-
-require('../models/Sentence');
+import '../models/Sentence';
 
 const Sentence = mongoose.model('sentences');
 
@@ -69,7 +68,7 @@ export default {
       _id: req.params.id
     })
       .then((sentence) => {
-        if (sentence.user != req.user.id) {
+        if (sentence.user.toString() !== req.user.id.toString()) {
           req.flash('error_msg', 'Not Authorized');
           res.redirect('/sentences');
           return false;

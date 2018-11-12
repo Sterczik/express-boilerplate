@@ -1,5 +1,4 @@
 import express from 'express';
-
 import LoginController from '../controllers/LoginController';
 import RegisterController from '../controllers/RegisterController';
 

@@ -1,4 +1,4 @@
-require('../models/User');
+import '../models/User';
 
 export default {
   index(req, res, next) {
