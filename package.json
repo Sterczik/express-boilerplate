@@ -14,8 +14,9 @@
     "dev": "nodemon --exec babel-node ./src/app.js",
     "eslint": "eslint ./src --config .eslintrc.json",
     "clean": "rm -rf build && mkdir build",
-    "build-babel": "babel -d ./build ./src/app.js -s",
-    "build": "npm run clean && npm run build-babel"
+    "build-babel": "babel src -d build && cp -R ./src/public ./build/public/ && cp -R ./src/views ./build/views/",
+    "build": "npm run clean && npm run build-babel",
+    "heroku-postbuild": "npm install && npm run start"
   },
   "repository": "git@github.com:Sterczik/express-boilerplate.git",
   "author": "sterczik <sterczewskik@gmail.com>",
